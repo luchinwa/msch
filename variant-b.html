@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>МСЧ № 99 ФМБА России — вариант Б</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Вариант Б: «справочная» — поиск и частые вопросы в центре, синяя шапка-полоса, услуги списком, адреса во вкладках */
+:root {
+  --bg: #F5F7FB;
+  --surface: #FFFFFF;
+  --ink: #142036;
+  --muted: #56627A;
+  --line: #DCE2EE;
+  --brand: #20438C;
+  --brand-deep: #172F63;
+  --brand-ink: #FFFFFF;
+  --brand-soft: #E7EDF8;
+  --link: #20438C;
+  --red: #D23B2F;
+  --ok: #1C7F49;
+  --off: #A0570A;
+  --font-display: "Manrope", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --radius: 18px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1422; --surface: #161F33; --ink: #E5EAF4; --muted: #9AA6BE; --line: #26324A;
+    --brand: #1C3570; --brand-deep: #111F45; --brand-ink: #F1F5FD; --brand-soft: #1E2B48; --link: #8FB0F5;
+    --red: #F06358; --ok: #4CC27F; --off: #E3A257; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1422; --surface: #161F33; --ink: #E5EAF4; --muted: #9AA6BE; --line: #26324A;
+  --brand: #1C3570; --brand-deep: #111F45; --brand-ink: #F1F5FD; --brand-soft: #1E2B48; --link: #8FB0F5;
+  --red: #F06358; --ok: #4CC27F; --off: #E3A257; color-scheme: dark;
+}
+:root.a11y {
+  --bg: #FFFFFF; --surface: #FFFFFF; --ink: #000000; --muted: #000000; --line: #000000;
+  --brand: #000000; --brand-deep: #000000; --brand-ink: #FFFFFF; --brand-soft: #FFFFFF; --link: #00227A;
+  --ok: #000000; --off: #000000; color-scheme: light; font-size: 125%;
+}
+:root.a11y a { text-decoration: underline !important; }
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.6 var(--font-body); }
+a { color: var(--link); text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--font-display); margin: 0; line-height: 1.15; text-wrap: balance; }
+h2 { font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.125rem); font-weight: 800; letter-spacing: -0.02em; }
+h3 { font-size: 1.125rem; font-weight: 700; }
+p { margin: 0; }
+.wrap { max-width: 1160px; margin-inline: auto; padding-inline: 20px; }
+.num { font-variant-numeric: tabular-nums; }
+.ico { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.label { font-size: .8125rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+
+.concept { background: var(--ink); color: var(--bg); font-size: .8125rem; }
+.concept .wrap { padding-block: 6px; display: flex; flex-wrap: wrap; gap: 4px 16px; justify-content: space-between; }
+
+/* Шапка и герой — одна синяя полоса */
+.top { background: var(--brand); color: var(--brand-ink); }
+.header { display: flex; align-items: center; gap: 20px; padding-block: 16px; }
+.brand { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; min-width: 0; }
+.brand svg { width: 42px; height: 42px; flex: none; }
+.brand b { font: 800 1.25rem/1.1 var(--font-display); display: block; }
+.brand small { font-size: .8125rem; opacity: .8; }
+.nav { display: flex; gap: 2px; margin-left: auto; }
+.nav a { color: var(--brand-ink); text-decoration: none; padding: 8px 12px; border-radius: 999px; font-weight: 500; white-space: nowrap; }
+.nav a:hover { background: color-mix(in srgb, var(--brand-ink) 14%, transparent); }
+.hdr-tools { display: flex; align-items: center; gap: 8px; }
+.round {
+  display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--brand-ink) 35%, transparent); background: none; color: var(--brand-ink); cursor: pointer;
+}
+.round[aria-pressed="true"] { background: var(--brand-ink); color: var(--brand); }
+.round.menu { display: none; }
+.hdr-phone { color: var(--brand-ink); text-decoration: none; font: 700 1.0625rem/1.2 var(--font-display); white-space: nowrap; }
+.hdr-phone small { display: block; font: 400 .75rem/1.2 var(--font-body); opacity: .8; }
+.mnav { display: none; }
+
+.hero { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 32px; padding-block: 36px 56px; align-items: start; }
+.hero h1 { font-size: clamp(2rem, 1.3rem + 3vw, 3.25rem); font-weight: 800; letter-spacing: -0.03em; }
+.hero-sub { margin-top: 12px; opacity: .85; max-width: 44ch; }
+.search { position: relative; margin-top: 28px; }
+.search input {
+  width: 100%; font: 500 1.125rem/1.2 var(--font-body); color: var(--ink); background: var(--surface);
+  border: 0; border-radius: 14px; padding: 18px 20px 18px 54px;
+}
+.search input::placeholder { color: var(--muted); }
+.search > .ico { position: absolute; left: 18px; top: 18px; color: var(--muted); width: 24px; height: 24px; }
+.results {
+  position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 10; list-style: none; margin: 0; padding: 6px;
+  background: var(--surface); border-radius: 14px; box-shadow: 0 12px 32px rgb(10 20 50 / .22); max-height: 320px; overflow: auto;
+}
+.results a { display: block; padding: 10px 14px; border-radius: 10px; color: var(--ink); text-decoration: none; }
+.results a:hover, .results a:focus-visible { background: var(--brand-soft); }
+.results small { display: block; color: var(--muted); font-size: .8125rem; }
+.results .empty { padding: 10px 14px; color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.chip {
+  font: 500 .9375rem/1.2 var(--font-body); color: var(--brand-ink); background: color-mix(in srgb, var(--brand-ink) 12%, transparent);
+  border: 0; border-radius: 999px; padding: 8px 14px; cursor: pointer; text-decoration: none;
+}
+.chip:hover { background: color-mix(in srgb, var(--brand-ink) 22%, transparent); }
+
+.today { background: var(--surface); color: var(--ink); border-radius: var(--radius); padding: 22px; display: grid; gap: 14px; }
+.today-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.today-head h2 { font-size: 1.25rem; }
+.today ul { list-style: none; margin: 0; padding: 0; display: grid; }
+.today li { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 12px 0; border-top: 1px solid var(--line); }
+.today li span { color: var(--muted); font-size: .875rem; grid-column: 1; }
+.st { font-style: normal; grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: .8125rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.st::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.st.on { color: var(--ok); }
+.st.off { color: var(--off); }
+.today .call { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; background: var(--brand-soft); border-radius: 12px; padding: 12px 14px; }
+.today .call a { font: 800 1.25rem/1.2 var(--font-display); color: var(--ink); text-decoration: none; }
+
+.scam { border-bottom: 1px solid var(--line); background: var(--surface); }
+.scam .wrap { display: flex; gap: 12px; align-items: flex-start; padding-block: 14px; font-size: .9375rem; }
+.scam .ico { color: var(--red); margin-top: 2px; }
+
+.section { padding-block: 56px; }
+.section + .section { padding-top: 8px; }
+.sec-head { display: flex; justify-content: space-between; align-items: end; flex-wrap: wrap; gap: 8px 24px; margin-bottom: 24px; }
+.sec-head p { color: var(--muted); max-width: 50ch; }
+
+/* Как записаться */
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.step { padding: 24px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.step + .step { border-left: 1px solid var(--line); }
+.step-n { font: 800 2.25rem/1 var(--font-display); color: var(--red); }
+.step p { color: var(--muted); font-size: .9375rem; }
+.ways { display: grid; gap: 8px; margin-top: 4px; }
+.way { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 10px; background: var(--brand-soft); color: var(--ink); text-decoration: none; font-weight: 500; }
+.way:hover { outline: 2px solid var(--brand); }
+.way small { color: var(--muted); font-weight: 400; }
+
+/* FAQ */
+.faq-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 32px; }
+.faq details { border-top: 1px solid var(--line); }
+.faq summary { list-style: none; cursor: pointer; padding: 16px 36px 16px 0; font-weight: 600; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 12px; font: 600 1.5rem/1 var(--font-display); color: var(--brand); }
+.faq details[open] summary::after { content: "−"; }
+.faq .ans { padding: 0 0 18px; color: var(--muted); }
+.faq .ans p + p { margin-top: 8px; }
+
+/* Услуги списком */
+.svc { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 32px; }
+.svc a { display: grid; grid-template-columns: 1fr auto; gap: 2px 16px; padding: 16px 0; border-top: 1px solid var(--line); color: var(--ink); text-decoration: none; }
+.svc a:hover b { color: var(--link); }
+.svc b { font: 700 1.0625rem/1.3 var(--font-display); }
+.svc span { color: var(--muted); font-size: .9375rem; grid-column: 1; }
+.svc .ico { grid-column: 2; grid-row: 1 / span 2; align-self: center; color: var(--muted); }
+.physio { margin-top: 32px; background: var(--brand-deep); color: var(--brand-ink); border-radius: var(--radius); padding: 28px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 24px; align-items: center; }
+.physio p { opacity: .85; margin-top: 8px; }
+.physio ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.physio li { border: 1px solid color-mix(in srgb, var(--brand-ink) 30%, transparent); border-radius: 999px; padding: 6px 14px; font-size: .9375rem; }
+.physio a { color: var(--brand-ink); font-weight: 600; display: inline-block; margin-top: 12px; }
+
+/* Адреса во вкладках */
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.tab { font: 600 .9375rem/1.2 var(--font-body); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 10px 18px; cursor: pointer; }
+.tab[aria-selected="true"] { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.panel > div { display: grid; gap: 4px; align-content: start; min-width: 0; }
+.panel .big { font: 700 1.25rem/1.3 var(--font-display); color: var(--ink); text-decoration: none; }
+
+/* Подвал */
+.footer { background: var(--brand-deep); color: var(--brand-ink); padding-block: 44px 28px; margin-top: 40px; font-size: .9375rem; }
+.footer a { color: var(--brand-ink); text-decoration: none; opacity: .88; }
+.footer a:hover { opacity: 1; text-decoration: underline; }
+.f-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 28px; }
+.f-grid h3 { font: 600 .8125rem/1.2 var(--font-body); letter-spacing: .06em; text-transform: uppercase; opacity: .7; margin-bottom: 12px; }
+.f-grid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.f-org p + p { margin-top: 8px; }
+.f-org .dim { opacity: .7; }
+.f-legal { margin-top: 32px; padding-top: 16px; border-top: 1px solid color-mix(in srgb, var(--brand-ink) 18%, transparent); font-size: .8125rem; opacity: .75; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+
+.dock { display: none; }
+
+@media (max-width: 1080px) {
+  .nav { display: none; }
+  .round.menu { display: inline-grid; }
+  .hdr-tools { margin-left: auto; }
+  .mnav:not([hidden]) { display: block; padding-bottom: 12px; }
+  .mnav a { display: block; color: var(--brand-ink); text-decoration: none; padding: 12px 0; border-top: 1px solid color-mix(in srgb, var(--brand-ink) 18%, transparent); font-weight: 500; }
+}
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; }
+  .step + .step { border-left: 0; border-top: 1px solid var(--line); }
+  .faq-grid, .svc { grid-template-columns: 1fr; }
+  .physio { grid-template-columns: 1fr; }
+  .panel { grid-template-columns: 1fr 1fr; }
+  .f-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .wrap { padding-inline: 16px; }
+  .hdr-phone { display: none; }
+  .brand b { font-size: 1.0625rem; }
+  .brand small { display: none; }
+  .hero { padding-block: 20px 32px; gap: 24px; }
+  .hero-sub { display: none; }
+  .search { margin-top: 18px; }
+  .search input { font-size: 1rem; padding: 16px 16px 16px 48px; }
+  .search > .ico { left: 14px; top: 15px; }
+  .section { padding-block: 40px; }
+  .panel, .f-grid { grid-template-columns: 1fr; }
+  .physio { padding: 22px; }
+  .dock {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+    background: var(--surface); border-top: 1px solid var(--line); padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+  }
+  .dock a { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 12px; border-radius: 12px; font-weight: 600; text-decoration: none; }
+  .dock .d1 { border: 1px solid var(--line); color: var(--ink); }
+  .dock .d2 { background: var(--red); color: #fff; }
+  body { padding-bottom: 76px; }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="M12 8v5M12 16h.01"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></symbol>
+</svg>
+
+<div class="concept"><div class="wrap"><span>Концепт-макет, вариант Б. Не рабочий сайт</span><span>Ссылки ведут на разделы текущего msch99.ru</span></div></div>
+
+<div class="top">
+  <div class="wrap">
+    <header class="header">
+      <a class="brand" href="https://msch99.ru/">
+        <svg viewBox="0 0 42 42" aria-hidden="true"><circle cx="21" cy="21" r="21" fill="#fff"/><path d="M17.5 9h7v8.5H33v7h-8.5V33h-7v-8.5H9v-7h8.5z" fill="var(--red)"/></svg>
+        <span><b>МСЧ № 99</b><small>ФМБА России, Комсомольск-на-Амуре</small></span>
+      </a>
+      <nav class="nav" aria-label="Основное меню">
+        <a href="https://msch99.ru/personal/">Пациентам</a>
+        <a href="https://msch99.ru/services/">Услуги и цены</a>
+        <a href="https://msch99.ru/about/services/">Отделения</a>
+        <a href="https://msch99.ru/about/">О нас</a>
+        <a href="https://msch99.ru/contacts.php">Контакты</a>
+      </nav>
+      <div class="hdr-tools">
+        <a class="hdr-phone num" href="tel:+74217201064">(4217) 20-10-64<small>регистратура</small></a>
+        <button class="round" id="a11y" type="button" aria-pressed="false" aria-label="Версия для слабовидящих" title="Версия для слабовидящих"><svg class="ico"><use href="#i-eye"/></svg></button>
+        <button class="round menu" id="menu" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Меню"><svg class="ico"><use href="#i-menu"/></svg></button>
+      </div>
+    </header>
+    <nav class="mnav" id="mnav" hidden aria-label="Меню">
+      <a href="https://msch99.ru/personal/">Пациентам</a>
+      <a href="https://msch99.ru/services/">Услуги и цены</a>
+      <a href="https://msch99.ru/about/services/">Отделения</a>
+      <a href="https://msch99.ru/about/">О нас</a>
+      <a href="https://msch99.ru/contacts.php">Контакты</a>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <h1>Чем мы можем помочь?</h1>
+        <p class="hero-sub">Найдите нужный раздел, часы работы кабинета или способ записи к врачу.</p>
+        <div class="search" role="search">
+          <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
+          <label for="q" class="sr" style="position:absolute;left:-9999px">Поиск по сайту</label>
+          <input id="q" type="search" autocomplete="off" placeholder="Например: анализ крови, прейскурант, больничный">
+          <ul class="results" id="results" hidden></ul>
+        </div>
+        <div class="chips">
+          <a class="chip" href="#zapis">Записаться к врачу</a>
+          <button class="chip" type="button" data-q="кровь">Сдать кровь</button>
+          <button class="chip" type="button" data-q="цены">Цены</button>
+          <button class="chip" type="button" data-q="водител">Водительская комиссия</button>
+          <button class="chip" type="button" data-q="больничн">Больничный</button>
+        </div>
+      </div>
+
+      <aside class="today" aria-label="Что открыто сейчас">
+        <div class="today-head">
+          <h2>Сейчас открыто</h2>
+          <span class="num label" id="clock">Комсомольск-на-Амуре</span>
+        </div>
+        <ul id="today">
+          <li data-days="wd" data-open="7:30" data-close="17:00"><b>Регистратура</b><span>пн–пт, 7:30–17:00</span><em class="st"></em></li>
+          <li data-days="wd" data-open="8:00" data-close="10:00"><b>Забор крови</b><span>пн–пт, 8:00–10:00</span><em class="st"></em></li>
+          <li data-days="wd" data-open="8:00" data-close="15:48"><b>Госпиталь, Комсомольск-31</b><span>пн–пт, 8:00–15:48</span><em class="st"></em></li>
+          <li data-days="all" data-open="0:00" data-close="24:00"><b>Здравпункт, Аллея Труда, 1</b><span>ежедневно, круглосуточно</span><em class="st"></em></li>
+        </ul>
+        <div class="call">
+          <a class="num" href="tel:+74217201064">(4217) 20-10-64</a>
+          <span class="num" style="color:var(--muted);font-size:.875rem">+7 914 170-10-49</span>
+        </div>
+      </aside>
+    </section>
+  </div>
+</div>
+
+<div class="scam">
+  <div class="wrap">
+    <svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg>
+    <p><b>Осторожно, мошенники.</b> Мы не пишем в мессенджеры и не спрашиваем СНИЛС, полис или паспорт. На диспансеризацию приглашаем только по телефону.</p>
+  </div>
+</div>
+
+<main>
+  <section class="section" id="zapis">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Как записаться к врачу</h2>
+        <p>Онлайн-запись работает только для пациентов, прикреплённых к МСЧ № 99.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-n">1</span>
+          <h3>Прикрепитесь к поликлинике</h3>
+          <p>Если вы уже наблюдаетесь у нас, пропустите этот шаг.</p>
+          <a href="https://msch99.ru/personal/clinic_statement.php">Порядок прикрепления</a>
+        </div>
+        <div class="step">
+          <span class="step-n">2</span>
+          <h3>Выберите удобный способ</h3>
+          <div class="ways">
+            <a class="way" href="https://www.gosuslugi.ru/">Госуслуги <small>регион: ФМБА</small></a>
+            <a class="way" href="https://reg.fmba.gov.ru/">Портал ФМБА <small>reg.fmba.gov.ru</small></a>
+            <a class="way num" href="tel:+74217201064">(4217) 20-10-64 <small>с 7:30</small></a>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-n">3</span>
+          <h3>Подготовьтесь к приёму</h3>
+          <p>Для анализов, УЗИ и рентгена есть правила подготовки. Кровь сдают с 8:00 до 10:00.</p>
+          <a href="https://msch99.ru/personal/pravila-podgotovki-k-issledovaniyam.php">Правила подготовки</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section faq">
+    <div class="wrap">
+      <div class="sec-head"><h2>Частые вопросы</h2><a href="https://msch99.ru/vopros-otvet.php">Задать свой вопрос</a></div>
+      <div class="faq-grid">
+        <div>
+          <details open>
+            <summary>Почему я не могу записаться через Госуслуги?</summary>
+            <div class="ans"><p>Онлайн-запись доступна только прикреплённым пациентам. При записи на Госуслугах в поле региона выберите «Федеральное медико-биологическое агентство».</p></div>
+          </details>
+          <details>
+            <summary>Когда можно сдать кровь?</summary>
+            <div class="ans"><p>Забор крови в поликлинике: по будням с 8:00 до 10:00. Анализ на группу крови и резус-фактор для водительской комиссии: с 14:30 до 16:00.</p></div>
+          </details>
+          <details>
+            <summary>Куда обратиться вечером или в выходные?</summary>
+            <div class="ans"><p>Здравпункт на Аллее Труда, 1 работает круглосуточно без выходных: 8 914 170-26-75. При угрозе жизни звоните 103 или 112.</p></div>
+          </details>
+        </div>
+        <div>
+          <details>
+            <summary>Как получить электронный больничный?</summary>
+            <div class="ans"><p>Больничный оформляет лечащий врач, он сразу появляется в личном кабинете на Госуслугах. <a href="https://msch99.ru/personal/elektronnyy-listok-netrudosposobnosti.php">Подробнее</a></p></div>
+          </details>
+          <details>
+            <summary>Сколько стоят платные услуги?</summary>
+            <div class="ans"><p>Цены опубликованы в прейскуранте. Там же расписание врачей, которые ведут платный приём. <a href="https://msch99.ru/services/price_list/">Открыть прейскурант</a></p></div>
+          </details>
+          <details>
+            <summary>Мне позвонили «из поликлиники» и просят СНИЛС. Это вы?</summary>
+            <div class="ans"><p>Нет. Мы не запрашиваем СНИЛС, номер полиса и паспорта по телефону и не пишем в мессенджеры. Положите трубку и перезвоните в регистратуру: (4217) 20-10-64.</p></div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-head"><h2>Отделения и диагностика</h2><a href="https://msch99.ru/services/">Все услуги и цены</a></div>
+      <div class="svc">
+        <a href="https://msch99.ru/about/services/therapeutic_department/"><b>Терапевтическое отделение</b><span>Приём терапевтов, гидроколонотерапия</span><svg class="ico"><use href="#i-arrow"/></svg></a>
+        <a href="https://msch99.ru/about/services/x_ray_department.php"><b>Рентгенологическое отделение</b><span>Рентген, флюорография, денситометрия · 8:00–14:30</span><svg class="ico"><use href="#i-arrow"/></svg></a>
+        <a href="https://msch99.ru/about/services/clinical_and_diagnostic_laboratory.php"><b>Клинико-диагностическая лаборатория</b><span>Забор крови 8:00–10:00</span><svg class="ico"><use href="#i-arrow"/></svg></a>
+        <a href="https://msch99.ru/about/services/ultrasound_diagnostics_cabinet.php"><b>Ультразвуковая диагностика</b><span>По записи · 8:00–15:42</span><svg class="ico"><use href="#i-arrow"/></svg></a>
+        <a href="https://msch99.ru/about/services/department_of_functional_diagnostics.php"><b>Функциональная диагностика</b><span>ЭКГ · 8:00–15:30</span><svg class="ico"><use href="#i-arrow"/></svg></a>
+        <a href="https://msch99.ru/about/services/dental_office.php"><b>Стоматологический кабинет</b><span>8:00–15:06, перерыв 12:30–13:00</span><svg class="ico"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="physio">
+        <div>
+          <h3 style="font-size:1.5rem">Физиотерапия и восстановление</h3>
+          <p>Курсы при болезнях суставов и позвоночника, сердца и сосудов, органов дыхания.</p>
+          <a href="https://msch99.ru/about/services/physiotherapy/">О физиотерапевтическом отделении</a>
+        </div>
+        <ul>
+          <li>Галотерапия</li><li>Криотерапия</li><li>Грязелечение</li><li>Водолечение</li><li>Сухие углекислые ванны</li>
+          <li>Фитобочка</li><li>Вакуумный массаж</li><li>Ручной массаж</li><li>Ингаляции</li><li>Лазерная расчёска</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-head"><h2>Адреса и телефоны</h2></div>
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" aria-selected="true" data-tab="0" type="button">Поликлиника</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="1" type="button">Госпиталь</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="2" type="button">Здравпункт</button>
+      </div>
+      <div class="panel" role="tabpanel" data-panel="0">
+        <div><span class="label">Адрес</span><span class="big">ул. Краснофлотская, 7</span><span style="color:var(--muted)">681000, Комсомольск-на-Амуре</span></div>
+        <div><span class="label">Регистратура</span><a class="big num" href="tel:+74217201064">(4217) 20-10-64</a><span class="num" style="color:var(--muted)">+7 914 170-10-49</span></div>
+        <div><span class="label">Часы работы</span><span class="big num">пн–пт, 8:00–17:00</span><span class="num" style="color:var(--muted)">регистратура с 7:30</span></div>
+      </div>
+      <div class="panel" role="tabpanel" data-panel="1" hidden>
+        <div><span class="label">Адрес</span><span class="big">Комсомольск-31, ул. Прудная, 16</span><span style="color:var(--muted)">681031, Комсомольский р-н, с.п. Селихинское</span></div>
+        <div><span class="label">Регистратура</span><a class="big num" href="tel:+79141602321">8 914 160-23-21</a><span style="color:var(--muted)">ohosp99@yandex.ru</span></div>
+        <div><span class="label">Часы работы</span><span class="big num">пн–пт, 8:00–15:48</span><span style="color:var(--muted)">сб, вс — выходной</span></div>
+      </div>
+      <div class="panel" role="tabpanel" data-panel="2" hidden>
+        <div><span class="label">Адрес</span><span class="big">Аллея Труда, 1</span><span style="color:var(--muted)">681000, Комсомольск-на-Амуре</span></div>
+        <div><span class="label">Телефон</span><a class="big num" href="tel:+79141702675">8 914 170-26-75</a></div>
+        <div><span class="label">Часы работы</span><span class="big">Круглосуточно</span><span style="color:var(--muted)">без выходных</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="f-grid">
+      <div class="f-org">
+        <p><b>ФГБУЗ МСЧ № 99 ФМБА России</b></p>
+        <p class="dim">Федеральное государственное бюджетное учреждение здравоохранения «Медико-санитарная часть № 99 Федерального медико-биологического агентства»</p>
+        <p class="num">Тел./факс (4217) 59-28-47 · msch99@yandex.ru</p>
+        <p class="dim">Начальник: Пинтакова Галина Юрьевна</p>
+      </div>
+      <div><h3>Об учреждении</h3><ul>
+        <li><a href="https://msch99.ru/about/structure.php">Структура</a></li>
+        <li><a href="https://msch99.ru/about/litsenziya.php">Лицензия и документы</a></li>
+        <li><a href="https://msch99.ru/about/jobs.php">Вакансии</a></li>
+        <li><a href="https://msch99.ru/about/protivodeystvie-korruptsii.php">Противодействие коррупции</a></li>
+        <li><a href="https://msch99.ru/about/antiterror.php">Антитеррор</a></li>
+      </ul></div>
+      <div><h3>Пациентам</h3><ul>
+        <li><a href="https://msch99.ru/personal/vidy-i-usloviya-okazaniya-meditsinskoy-pomoshchi.php">Виды и условия помощи</a></li>
+        <li><a href="https://msch99.ru/personal/pravila-gospitalizatsii.php">Госпитализация</a></li>
+        <li><a href="https://msch99.ru/personal/lgotnoe-lekarstvennoe-obespechenie.php">Льготные лекарства</a></li>
+        <li><a href="https://msch99.ru/personal/svedeniya-o-meditsinskikh-rabotnikakh.php">Медработники</a></li>
+        <li><a href="https://msch99.ru/personal/obrashcheniya-grazhdan.php">Обращения граждан</a></li>
+      </ul></div>
+      <div><h3>Ресурсы</h3><ul>
+        <li><a href="https://msch99.ru/informatsiya-fmba-rossii.php">ФМБА России</a></li>
+        <li><a href="https://msch99.ru/hkfoms/index.php">ХКФОМС</a></li>
+        <li><a href="https://msch99.ru/informatsiya-sogaz-med.php">СОГАЗ-Мед</a></li>
+        <li><a href="https://msch99.ru/informatsiya-dlya-uchastnikov-svo-i-chlenov-ikh-semey.php">Участникам СВО</a></li>
+        <li><a href="https://vk.ru/fmba_msch99">ВКонтакте</a> · <a href="https://max.ru/id2727000624_gos">MAX</a></li>
+      </ul></div>
+    </div>
+    <div class="f-legal">
+      <span>Лицензия Л041-00110-79/00363716 от 19.07.2019</span>
+      <a href="https://msch99.ru/personal/politika-uchrezhdeniya-v-otnoshenii-personalnykh-dannykh.php">Политика обработки персональных данных</a>
+    </div>
+  </div>
+</footer>
+
+<div class="dock">
+  <a class="d1" href="tel:+74217201064"><svg class="ico"><use href="#i-phone"/></svg>Позвонить</a>
+  <a class="d2" href="#zapis">Записаться</a>
+</div>
+
+<script>
+(function () {
+  // Меню
+  var menu = document.getElementById('menu'), mnav = document.getElementById('mnav');
+  menu.addEventListener('click', function () {
+    mnav.hidden = !mnav.hidden; menu.setAttribute('aria-expanded', String(!mnav.hidden));
+  });
+
+  // Слабовидящие
+  var a = document.getElementById('a11y');
+  function setA(on) {
+    document.documentElement.classList.toggle('a11y', on); a.setAttribute('aria-pressed', String(on));
+    try { localStorage.setItem('msch99-a11y', on ? '1' : '0'); } catch (e) {}
+  }
+  a.addEventListener('click', function () { setA(!document.documentElement.classList.contains('a11y')); });
+  try { if (localStorage.getItem('msch99-a11y') === '1') setA(true); } catch (e) {}
+
+  // Вкладки адресов
+  var tabs = document.querySelectorAll('.tab'), panels = document.querySelectorAll('[data-panel]');
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () {
+      tabs.forEach(function (x) { x.setAttribute('aria-selected', String(x === t)); });
+      panels.forEach(function (p) { p.hidden = p.dataset.panel !== t.dataset.tab; });
+    });
+  });
+
+  // Поиск по разделам сайта
+  var base = 'https://msch99.ru';
+  var index = [
+    ['Электронная запись к врачу', 'Госуслуги, портал ФМБА', '/elektronnye-uslugi.php', 'запись записаться врач приём госуслуги'],
+    ['Порядок прикрепления', 'Документы для прикрепления', '/personal/clinic_statement.php', 'прикрепление прикрепиться полис'],
+    ['Прейскурант', 'Цены на платные услуги', '/services/price_list/', 'цены цена стоимость платные прейскурант'],
+    ['График работы', 'Кабинеты и подразделения', '/services/grafik-raboty.php', 'график часы время работы расписание'],
+    ['Клинико-диагностическая лаборатория', 'Забор крови 8:00–10:00', '/about/services/clinical_and_diagnostic_laboratory.php', 'кровь анализ анализы лаборатория'],
+    ['Правила подготовки к исследованиям', 'Анализы, УЗИ, рентген', '/personal/pravila-podgotovki-k-issledovaniyam.php', 'подготовка анализ кровь узи рентген'],
+    ['Водительская комиссия', 'Группа крови и резус-фактор, 14:30–16:00', '/services/grafik-raboty.php', 'водитель водительская права справка кровь'],
+    ['Электронный листок нетрудоспособности', 'Больничный', '/personal/elektronnyy-listok-netrudosposobnosti.php', 'больничный лист нетрудоспособность элн'],
+    ['Диспансеризация', 'Кто проходит и как', '/personal/dispanserizatsiya.php', 'диспансеризация профосмотр осмотр'],
+    ['Льготное лекарственное обеспечение', 'Бесплатные лекарства', '/personal/lgotnoe-lekarstvennoe-obespechenie.php', 'льготные лекарства рецепт'],
+    ['Рентгенологическое отделение', 'Рентген, флюорография', '/about/services/x_ray_department.php', 'рентген флюорография снимок денситометрия'],
+    ['Кабинет УЗИ', 'По предварительной записи', '/about/services/ultrasound_diagnostics_cabinet.php', 'узи ультразвук'],
+    ['Стоматологический кабинет', 'Лечение зубов', '/about/services/dental_office.php', 'зубы стоматолог стоматология'],
+    ['Физиотерапевтическое отделение', 'Массаж, галотерапия, криотерапия', '/about/services/physiotherapy/', 'физиотерапия массаж соляная пещера грязи ванны'],
+    ['Вакансии', 'Работа в МСЧ № 99', '/about/jobs.php', 'вакансии работа'],
+    ['Контакты и схема проезда', 'Адреса и телефоны', '/contacts.php', 'контакты адрес телефон проезд'],
+    ['Вопрос-ответ', 'Задать вопрос', '/vopros-otvet.php', 'вопрос жалоба обращение'],
+    ['Правила госпитализации', 'Сроки и порядок', '/personal/pravila-gospitalizatsii.php', 'госпитализация стационар госпиталь']
+  ];
+  var q = document.getElementById('q'), res = document.getElementById('results');
+  function search(v) {
+    v = v.trim().toLowerCase();
+    if (!v) { res.hidden = true; return; }
+    var hits = index.filter(function (r) { return (r[0] + ' ' + r[1] + ' ' + r[3]).toLowerCase().indexOf(v) !== -1; }).slice(0, 6);
+    res.innerHTML = hits.length
+      ? hits.map(function (r) { return '<li><a href="' + base + r[2] + '">' + r[0] + '<small>' + r[1] + '</small></a></li>'; }).join('')
+      : '<li class="empty">Ничего не нашлось. Позвоните в регистратуру: (4217) 20-10-64</li>';
+    res.hidden = false;
+  }
+  q.addEventListener('input', function () { search(q.value); });
+  document.addEventListener('click', function (e) { if (!e.target.closest('.search') && !e.target.closest('[data-q]')) res.hidden = true; });
+  document.querySelectorAll('[data-q]').forEach(function (b) {
+    b.addEventListener('click', function () { q.value = b.dataset.q; search(b.dataset.q); q.focus(); });
+  });
+
+  // Что открыто сейчас (UTC+10)
+  function mins(s) { var p = s.split(':'); return +p[0] * 60 + +p[1]; }
+  function render() {
+    var parts = new Intl.DateTimeFormat('ru-RU', { timeZone: 'Asia/Vladivostok', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date());
+    var g = function (t) { return (parts.find(function (p) { return p.type === t; }) || {}).value; };
+    var wd = g('weekday'), h = +g('hour'), m = +g('minute'), t = h * 60 + m;
+    var weekday = ['пн','вт','ср','чт','пт'].indexOf(wd) !== -1;
+    document.getElementById('clock').textContent = wd + ', ' + h + ':' + (m < 10 ? '0' : '') + m;
+    document.querySelectorAll('#today li').forEach(function (li) {
+      var dayOk = li.dataset.days === 'all' || weekday;
+      var open = dayOk && t >= mins(li.dataset.open) && t < mins(li.dataset.close);
+      var st = li.querySelector('.st');
+      st.className = 'st ' + (open ? 'on' : 'off');
+      st.textContent = open ? (li.dataset.days === 'all' ? 'открыто' : 'до ' + li.dataset.close) : 'закрыто';
+    });
+  }
+  render(); setInterval(render, 30000);
+})();
+</script>
+</body>
+</html>
