@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Редизайн msch99.ru — концепт</title>
+<meta name="description" content="Два варианта новой главной страницы сайта МСЧ № 99 ФМБА России. Концепт-макеты, не рабочий сайт.">
+<meta property="og:title" content="Редизайн msch99.ru — концепт">
+<meta property="og:description" content="Два варианта новой главной страницы: «Сначала задача пациента» и «Справочная».">
+<meta property="og:image" content="img/preview-a.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Onest:wght@600;700&display=swap">
+<style>
+/* Страница-витрина: заголовок, два варианта карточками с превью, что изменилось */
+:root {
+  --bg: #F3F7F7; --surface: #FFFFFF; --ink: #11292E; --muted: #536D72; --line: #D6E2E3;
+  --brand: #0B6A73; --brand-ink: #FFFFFF; --brand-soft: #E0EFEF;
+  --font-display: "Onest", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Golos Text", "Segoe UI", system-ui, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0C1A1D; --surface: #132629; --ink: #E3EEEF; --muted: #98B2B5; --line: #24393D;
+    --brand: #3DB2BB; --brand-ink: #04211F; --brand-soft: #16343A; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0C1A1D; --surface: #132629; --ink: #E3EEEF; --muted: #98B2B5; --line: #24393D;
+  --brand: #3DB2BB; --brand-ink: #04211F; --brand-soft: #16343A; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.6 var(--font-body); }
+a { color: var(--brand); text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--font-display); margin: 0; line-height: 1.15; text-wrap: balance; }
+img { max-width: 100%; display: block; }
+.wrap { max-width: 1160px; margin-inline: auto; padding-inline: 20px; }
+.label { font-size: .8125rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+
+header { padding-block: 56px 32px; display: grid; gap: 14px; }
+header h1 { font-size: clamp(2rem, 1.4rem + 2.6vw, 3.25rem); font-weight: 700; letter-spacing: -0.02em; max-width: 20ch; }
+header p { color: var(--muted); max-width: 62ch; font-size: 1.0625rem; }
+.note { display: inline-flex; gap: 8px; align-items: center; justify-self: start; background: var(--brand-soft); border-radius: 999px; padding: 6px 14px; font-size: .875rem; }
+
+.variants { display: grid; gap: 28px; padding-bottom: 48px; }
+.variant { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+.variant a.shot { display: block; background: #E6ECEE; }
+.variant a.shot img { width: 100%; height: 100%; object-fit: cover; object-position: left top; transition: transform .3s; }
+@media (prefers-reduced-motion: reduce) { .variant a.shot img { transition: none; } }
+.variant a.shot:hover img { transform: scale(1.015); }
+.info { padding: 32px; display: grid; gap: 14px; align-content: start; min-width: 0; }
+.info h2 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.01em; }
+.info p { color: var(--muted); }
+.info ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
+.btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; text-decoration: none; border-radius: 10px; padding: 12px 18px; white-space: nowrap; }
+.btn-primary { background: var(--brand); color: var(--brand-ink); }
+.btn-ghost { border: 1px solid var(--line); color: var(--ink); }
+.btn-ghost:hover { border-color: var(--brand); color: var(--brand); }
+
+.changes { padding-block: 16px 64px; }
+.changes h2 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); margin-bottom: 20px; }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.cell { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: grid; gap: 6px; align-content: start; }
+.cell b { font-family: var(--font-display); font-size: 1.0625rem; }
+.cell span { color: var(--muted); font-size: .9375rem; }
+footer { border-top: 1px solid var(--line); padding-block: 24px 40px; color: var(--muted); font-size: .875rem; }
+
+@media (max-width: 900px) {
+  .variant { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .wrap { padding-inline: 16px; }
+  header { padding-block: 32px 24px; }
+  .info { padding: 22px; }
+  .grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="label">Концепт редизайна</span>
+    <h1>Новая главная страница msch99.ru</h1>
+    <p>Два варианта главной страницы сайта МСЧ № 99 ФМБА России. Оба работают на компьютере и телефоне, используют настоящие данные с текущего сайта и встроенный режим для слабовидящих.</p>
+    <span class="note">Это макеты для обсуждения, а не рабочий сайт. Ссылки внутри ведут на msch99.ru.</span>
+  </header>
+
+  <main class="variants">
+    <article class="variant">
+      <a class="shot" href="variant-a.html" aria-label="Открыть вариант А"><img src="img/preview-a.png" alt="Вариант А: главная страница на компьютере и телефоне" width="1600" height="1000"></a>
+      <div class="info">
+        <span class="label">Вариант А</span>
+        <h2>Сначала задача пациента</h2>
+        <p>Первый экран состоит из действий: записаться, прикрепиться, пройти диспансеризацию, узнать цены.</p>
+        <ul>
+          <li>Крупная плитка записи со всеми способами</li>
+          <li>Статус регистратуры по местному времени</li>
+          <li>График кабинетов с отметкой «открыто сейчас»</li>
+        </ul>
+        <div class="btns"><a class="btn btn-primary" href="variant-a.html">Открыть вариант А</a></div>
+      </div>
+    </article>
+
+    <article class="variant">
+      <a class="shot" href="variant-b.html" aria-label="Открыть вариант Б"><img src="img/preview-b.png" alt="Вариант Б: главная страница на компьютере и телефоне" width="1600" height="1000"></a>
+      <div class="info">
+        <span class="label">Вариант Б</span>
+        <h2>Справочная</h2>
+        <p>В центре поиск по сайту и ответы на частые вопросы. Подходит, если пациенты чаще ищут информацию, чем записываются.</p>
+        <ul>
+          <li>Поиск с подсказками по разделам сайта</li>
+          <li>Блок «Сейчас открыто» для всех подразделений</li>
+          <li>Запись к врачу в три шага и частые вопросы</li>
+        </ul>
+        <div class="btns"><a class="btn btn-primary" href="variant-b.html">Открыть вариант Б</a></div>
+      </div>
+    </article>
+  </main>
+
+  <section class="changes">
+    <h2>Что меняется по сравнению с текущим сайтом</h2>
+    <div class="grid">
+      <div class="cell"><b>Мобильная версия</b><span>Сайт перестраивается под экран телефона, внизу закреплены кнопки «Позвонить» и «Записаться».</span></div>
+      <div class="cell"><b>Главное на первом экране</b><span>Запись, телефон регистратуры и часы работы видны без прокрутки.</span></div>
+      <div class="cell"><b>Режим для слабовидящих</b><span>Включается кнопкой на любой странице, без перехода на отдельный сайт.</span></div>
+      <div class="cell"><b>Текст вместо картинок</b><span>Объявления и баннеры сделаны текстом: их находит поиск и читают экранные дикторы.</span></div>
+      <div class="cell"><b>Одно предупреждение</b><span>Вместо россыпи «ВНИМАНИЕ!» одна плашка о мошенниках.</span></div>
+      <div class="cell"><b>Обязательное в подвале</b><span>Документы, лицензия и контролирующие органы собраны внизу страницы.</span></div>
+    </div>
+  </section>
+</div>
+<footer>
+  <div class="wrap">Концепт-макеты подготовлены для обсуждения с ФГБУЗ МСЧ № 99 ФМБА России. Официальный сайт учреждения: <a href="https://msch99.ru/">msch99.ru</a>.</div>
+</footer>
+</body>
+</html>

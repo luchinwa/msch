@@ -170,6 +170,17 @@ p { margin: 0; }
 .status dd { margin: 0; text-align: right; }
 .status address { font-style: normal; font-size: .9375rem; }
 
+/* Обратная связь через Госуслуги (ПОС «Решаем вместе»): кнопка открывает форму виджета */
+.side { display: grid; gap: 12px; }
+.pos { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; display: grid; gap: 10px; }
+.pos b { font: 700 1.125rem/1.2 var(--font-display); }
+.pos p { margin: 0; font-size: .9375rem; color: var(--muted); }
+.pos-btn { justify-self: start; display: inline-flex; align-items: center; gap: 8px; border: 0; cursor: pointer; font: 600 .9375rem var(--font-body); background: #0D4CD3; color: #FFFFFF; border-radius: 10px; padding: 11px 18px; }
+.pos-btn:hover { background: #0B3FB0; }
+.pos-mark { font-size: .8125rem; color: var(--muted); }
+:root.a11y .pos { border-width: 2px; }
+:root.a11y .pos-btn { background: #000000; }
+
 /* Секции */
 .section { padding-block: 48px; }
 .section-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 8px 24px; margin-bottom: 24px; }
@@ -233,6 +244,7 @@ details.regs summary { cursor: pointer; font-weight: 600; }
 
 @media (max-width: 1040px) {
   .hero-grid { grid-template-columns: 1fr; }
+  .side { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); align-items: start; }
   .status { grid-template-columns: 1fr 1fr; }
   .status dl { grid-column: 1 / -1; }
   .foot-grid { grid-template-columns: 1fr 1fr; }
@@ -264,6 +276,7 @@ details.regs summary { cursor: pointer; font-weight: 600; }
   .tile span { display: none; }
   .tile-main span { display: block; }
   .tile-main .way { display: inline-flex; }
+  .side { grid-template-columns: 1fr; }
   .status { grid-template-columns: 1fr; }
   .depts, .units, .news { grid-template-columns: 1fr; }
   .dept-feature { grid-column: auto; grid-row: auto; padding: 20px; }
@@ -415,6 +428,7 @@ details.regs summary { cursor: pointer; font-weight: 600; }
           </a>
         </div>
 
+        <div class="side">
         <aside class="status" aria-label="Регистратура поликлиники">
           <div>
             <div class="eyebrow">Регистратура поликлиники</div>
@@ -432,6 +446,14 @@ details.regs summary { cursor: pointer; font-weight: 600; }
           </dl>
           <address>ул. Краснофлотская, 7<br><a href="https://msch99.ru/contacts.php">Схема проезда</a></address>
         </aside>
+          <!-- Сюда встаёт код виджета ПОС из личного кабинета pos.gosuslugi.ru; кнопка вызывает Widget(...) с ID учреждения -->
+          <section class="pos" aria-label="Обратная связь через Госуслуги">
+            <b>Есть вопрос или жалоба?</b>
+            <p>Напишите через Госуслуги. Ответ придёт в личный кабинет.</p>
+            <button class="pos-btn" type="button" id="js-show-iframe-wrapper">Написать</button>
+            <span class="pos-mark">Госуслуги · Решаем вместе</span>
+          </section>
+        </div>
       </div>
     </div>
   </section>
